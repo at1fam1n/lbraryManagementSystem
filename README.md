@@ -1,3 +1,4 @@
 # lbraryManagementSystem
-This is my first Git Repository
-Author-Atif Amin
+This is my first Git Repository.
+<br>
+Author-Atif Amin.
