@@ -1,2 +1,2 @@
 # lbraryManagementSystem
-my first projract
+This is my jfirst Git repository
