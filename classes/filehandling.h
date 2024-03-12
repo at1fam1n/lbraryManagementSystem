@@ -17,11 +17,11 @@ public:
             cout << "Error opening file\n";
             return;
         }
-        
-        file <<"BookName,"<<"AuthorName,"<<"BookId"<<endl;
-        file << bookname<<","<<authorname<< ","<<bookid<<endl;
-    
-       // file << "Books added successfully!" << endl;
+
+        file << "BookName,"<< "AuthorName," << "BookId" << endl;
+        file << bookname << "," << authorname << "," << bookid << endl;
+
+        // file << "Books added successfully!" << endl;
         file.close();
     }
 
@@ -46,55 +46,47 @@ public:
         file.close();
     }
 
-
-  bool deleteBook(string id)
-{
-    ifstream inFile("text.csv");
-    ofstream outFile("temp.csv");
-
-    if (!inFile.is_open() || !outFile.is_open())
+    bool deleteBook(string id)
     {
-        cout << "Error: Could not open file." << endl;
-        return false;
-    }
+        ifstream inFile("text.csv");
+        ofstream outFile("temp.csv");
 
-    string line;
-    bool found = false;
-    while (getline(inFile, line))
-    {
-        size_t pos = line.find(id);
-        if (pos == string::npos)
+        if (!inFile.is_open() || !outFile.is_open())
         {
-            outFile << line << endl;
+            cout << "Error: Could not open file." << endl;
+            return false;
+        }
+
+        string line;
+        bool found = false;
+        while (getline(inFile, line))
+        {
+            size_t pos = line.find(id);
+            if (pos == string::npos)
+            {
+                outFile << line << endl;
+            }
+            else
+            {
+                found = true;
+            }
+        }
+
+        inFile.close();
+        outFile.close();
+
+        if (found)
+        {
+           // remove("text.csv");
+           // rename("temp.csv", "text.csv");
+            cout << "Book deleted successfully!" << endl;
+            return true;
         }
         else
         {
-            found = true;
+            cout << "Book not found!" << endl;
+           // remove("temp.csv");
+            return false;
         }
     }
-
-    inFile.close();
-    outFile.close();
-
-    if (found)
-    {
-        remove("text.csv");
-        rename("temp.csv", "text.csv");
-        cout << "Book deleted successfully!" << endl;
-        return true;
-    }
-    else
-    {
-        cout << "Book not found!" << endl;
-        remove("temp.csv");
-        return false;
-    }
-}
-
-    bool updateBook( string id) {
-        
-}
-
-
-
 };

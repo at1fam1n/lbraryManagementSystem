@@ -16,10 +16,10 @@ int main()
     {
         cout << "ENTER 1 TO ADD BOOK ::" << endl;
         cout << "ENTER 2 TO RETRIEVE ALL BOOKS ::" << endl;
-        cout << "ENTER 3 TO REMOVE A BOOK ::" << endl;
-        cout << "ENTER 4 TO DELETE A BOOK BY ID ::" << endl;
-        cout << "ENTER 5 TO EXIT ::" << endl;
 
+        cout << "ENTER 3 TO DELETE A BOOK BY ID ::" << endl;
+        cout << "ENTER 4 TO UPDATE A BOOK ::" << endl;
+        cout << "ENTER 5 TO EXIT ::" << endl;
         cout << "____________________________________" << endl;
 
         cout << "ENTER YOUR CHOICE :: ";
@@ -42,19 +42,12 @@ int main()
         break;
 
         case '2':
+        {
             library.displayAllBooks();
             break;
+        }
 
         case '3':
-        {
-            string bookId;
-            cout << "ENTER BOOK ID TO REMOVE: ";
-            cin >> bookId;
-            library.deleteABook(bookId);
-        }
-        break;
-
-        case '4':
         {
             string bookId;
             cout << "ENTER BOOK ID TO DELETE: ";
@@ -63,16 +56,25 @@ int main()
         }
         break;
 
-        case '5':
-            cout << "PROGRAM TERMINATED!" << endl;
-            break;
+        case '4':
+        {
+            
+        }
 
-        default:
-            cout << "INVALID CHOICE! TRY AGAIN." << endl;
+        case '5':
+        {
+            cout << "PROGRAM TERMINATED!" << endl;
             break;
         }
 
-    } while (op != '5');
+        default:
+        {
+            cout << "INVALID CHOICE! TRY AGAIN." << endl;
+            break;
+        }
+        }
+
+    } while (op != '6');
 
     return 0;
 }

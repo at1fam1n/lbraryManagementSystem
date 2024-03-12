@@ -21,9 +21,9 @@ public:
         book.bookId = bid;
 
         cout << "book stored in library " << endl;
-        cout << book.bookName ;
-        cout << book.authorName ;
-        cout << book.bookId ;
+        cout << book.bookName;
+        cout << book.authorName;
+        cout << book.bookId;
 
         filehandling.saveBookToExcelFile(book.bookName, book.authorName, book.bookId);
     }
@@ -46,7 +46,6 @@ public:
 
     void checkAvailabilityStatus()
     {
-        
     }
 
     void deleteABook(string newbookid)
@@ -55,10 +54,9 @@ public:
         filehandling.deleteBook(newbookid);
     }
 
-    void updateBook( string newName,  string newAuthor,  string newId)
+    bool updateBook(string newName, string newAuthor, string newId)
     {
         book.updateBook(newName, newAuthor, newId);
-       
     }
 
     void displayAllBooks()

@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -12,7 +11,7 @@ public:
     string authorName;
     string bookId;
 
-    void updateBook( string newName,  string newAuthor,  string newId)
+    void updateBook(string newName, string newAuthor, string newId)
     {
         bookName = newName;
         authorName = newAuthor;
@@ -21,7 +20,7 @@ public:
 
     void display()
     {
-        cout << "Book Name"<<","<< "Author Name"<< ","<< "Book Id" << endl;
+        cout << "Book Name"<< ","<< "Author Name"<<"," "Book Id" << endl;
         cout << bookName << "," << authorName << "," << bookId << endl;
     }
 };
