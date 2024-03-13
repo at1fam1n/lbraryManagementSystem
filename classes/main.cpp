@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 #include <vector>
 #include <string>
 #include "library.h"
@@ -8,7 +7,7 @@ using namespace std;
 
 int main()
 {
-    Library library;
+    Library library; // Create the library object
 
     char op;
 
@@ -16,10 +15,10 @@ int main()
     {
         cout << "ENTER 1 TO ADD BOOK ::" << endl;
         cout << "ENTER 2 TO RETRIEVE ALL BOOKS ::" << endl;
-
         cout << "ENTER 3 TO DELETE A BOOK BY ID ::" << endl;
         cout << "ENTER 4 TO UPDATE A BOOK ::" << endl;
-        cout << "ENTER 5 TO EXIT ::" << endl;
+        cout << "ENTER 5 TO CHECK AVALIBILITY ::" << endl;
+        cout << "ENTER 6 TO EXIT ::" << endl;
         cout << "____________________________________" << endl;
 
         cout << "ENTER YOUR CHOICE :: ";
@@ -32,9 +31,10 @@ int main()
         {
             string newName, newAuthor, newId;
             cout << "ENTER NEW BOOK NAME: ";
-            cin >> newName;
+            cin.ignore();
+            getline(cin, newName);
             cout << "ENTER NEW AUTHOR NAME: ";
-            cin >> newAuthor;
+            getline(cin, newAuthor);
             cout << "ENTER NEW BOOK ID: ";
             cin >> newId;
             library.addBook(newName, newAuthor, newId);
@@ -58,20 +58,37 @@ int main()
 
         case '4':
         {
-            
+            string id, newName, newAuthor, newId;
+            cout << "ENTER BOOK ID TO UPDATE: ";
+            cin >> id;
+            cout << "ENTER NEW BOOK NAME: ";
+            cin.ignore();
+            getline(cin, newName);
+            cout << "ENTER NEW AUTHOR NAME: ";
+            getline(cin, newAuthor);
+            cout << "ENTER NEW BOOK ID: ";
+            cin >> newId;
+            if (library.updateBook(id, newName, newAuthor, newId))
+                cout << "Book updated successfully!" << endl;
+            else
+                cout << "Book not found!" << endl;
         }
+        break;
 
         case '5':
         {
-            cout << "PROGRAM TERMINATED!" << endl;
-            break;
+            
+            library.checkAvailabilityStatus();
         }
+        break;
+
+        case '6':
+            cout << "Exiting program..." << endl;
+            break;
 
         default:
-        {
             cout << "INVALID CHOICE! TRY AGAIN." << endl;
             break;
-        }
         }
 
     } while (op != '6');

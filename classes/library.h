@@ -7,64 +7,65 @@ using namespace std;
 
 class Library
 {
-
 public:
     FileHandling filehandling;
     Book book;
-    Book book1[5];
+    //Book arrayOfBook[10];
 
     void addBook(string bName, string aName, string bid)
     {
-
         book.bookName = bName;
         book.authorName = aName;
         book.bookId = bid;
 
-        cout << "book stored in library " << endl;
-        cout << book.bookName;
-        cout << book.authorName;
-        cout << book.bookId;
+        cout << "Book stored in library:" << endl;
+        cout << "Name: " << book.bookName << endl;
+        cout << "Author: " << book.authorName << endl;
+        cout << "ID: " << book.bookId << endl;
 
         filehandling.saveBookToExcelFile(book.bookName, book.authorName, book.bookId);
     }
 
     void bookSearchById(string id)
     {
+    
     }
 
     void bookSearchByName(string bookname)
     {
+       
     }
 
     static void borrowBook()
     {
+        
     }
 
     static void returnBook(string id)
     {
+        
     }
 
-    void checkAvailabilityStatus()
-    {
-    }
+   void checkAvailabilityStatus()
+{
+
+}
+
+
+
 
     void deleteABook(string newbookid)
     {
-
         filehandling.deleteBook(newbookid);
     }
 
-    bool updateBook(string newName, string newAuthor, string newId)
+    bool updateBook(string id, string newName, string newAuthor, string newId)
     {
-        book.updateBook(newName, newAuthor, newId);
+        return filehandling.updateBook(id, newName, newAuthor, newId);
     }
 
     void displayAllBooks()
     {
-
-        book.display();
-
-        filehandling.saveBookToExcelFile(book.bookName, book.authorName, book.bookId);
         filehandling.retrieveBookFromExcelFile();
     }
 };
