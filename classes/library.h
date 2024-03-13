@@ -10,7 +10,6 @@ class Library
 public:
     FileHandling filehandling;
     Book book;
-    //Book arrayOfBook[10];
 
     void addBook(string bName, string aName, string bid)
     {
@@ -50,10 +49,6 @@ public:
 {
 
 }
-
-
-
-
     void deleteABook(string newbookid)
     {
         filehandling.deleteBook(newbookid);

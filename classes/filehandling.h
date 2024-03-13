@@ -61,8 +61,8 @@ public:
         bool found = false;
         while (getline(inFile, line))
         {
-            size_t pos = line.find(id);
-            if (pos == string::npos)
+            size_t position = line.find(id);
+            if (position == string::npos)
             {
                 outFile << line << endl;
             }
