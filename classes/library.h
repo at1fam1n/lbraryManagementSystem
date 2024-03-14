@@ -5,44 +5,61 @@
 #include "book.h"
 using namespace std;
 
-int numBooks=0; //number of books currently in the library
-
 class Library
 {
-
-    public:
-
+public:
     FileHandling filehandling;
-    static const int MAX_BOOKS = 100; //maximum number of books in the library
-    Book arrayOfBooks[MAX_BOOKS];     //array of books
+    Book *arrayOfBooks; //pointer to array of books
+    int numBooks;        //number of books currently in the library
+
+    Library() : numBooks(0)
+    {
+        //initialize arrayOfBooks
+        arrayOfBooks = new Book[1];//start with a size of 1, it will dynamically grow as needed
+    }
+
+    ~Library()
+    {
+        
+        delete[] arrayOfBooks; //deallocate memory for array of books
+    }
 
     void addBook(string bName, string aName)
-{
-    if (numBooks < MAX_BOOKS)
     {
-        string bid = generateId(); // Generate ID for the book
-        arrayOfBooks[numBooks].updateBook(bName, aName, bid);
+        string bid = generateId(); //generate ID for the book
+
+        Book newBook;
+        newBook.updateBook(bName, aName, bid);
+
+        //create a new dynamic array with increased size
+        Book *newArrayOfBooks = new Book[numBooks + 1];
+        // copy old array to new array
+        for (int i = 0; i < numBooks; ++i)
+        {
+            newArrayOfBooks[i] = arrayOfBooks[i];
+        }
+        // add new book
+        newArrayOfBooks[numBooks] = newBook;
+
+        //delete old array
+        delete[] arrayOfBooks;
+
+        //update arrayOfBooks and numBooks
+        arrayOfBooks = newArrayOfBooks;
+        numBooks++;
 
         cout << "Book stored in library:" << endl;
-        cout << "Name: " << arrayOfBooks[numBooks].bookName << endl;
-        cout << "Author: " << arrayOfBooks[numBooks].authorName << endl;
-        cout << "ID: " << arrayOfBooks[numBooks].bookId << endl;
+        cout << "Name: " << newBook.bookName << endl;
+        cout << "Author: " << newBook.authorName << endl;
+        cout << "ID: " << newBook.bookId << endl;
 
-        filehandling.saveBookToExcelFile(arrayOfBooks[numBooks].bookName, arrayOfBooks[numBooks].authorName, arrayOfBooks[numBooks].bookId);
-
-        numBooks++;
+        filehandling.saveBookToExcelFile(newBook.bookName, newBook.authorName, newBook.bookId);
     }
-    else
-    {
-        cout << "Maximum number of books reached." << endl;
-    }
-}
-
 
     string generateId()
     {
         //generate random ID for book
-         char alphanum[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        char alphanum[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
         const int idLength = 5; // Set the length of the ID
         string id;
@@ -52,7 +69,7 @@ class Library
             id += alphanum[rand() % (sizeof(alphanum) - 1)];
         }
 
-        cout<<"YOUR BOOK ID IS :: "<<id;
+        cout << "YOUR BOOK ID IS :: " << id<<endl;
 
         return id;
     }

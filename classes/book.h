@@ -11,6 +11,7 @@ public:
     string authorName;
     string bookId;
     bool status;
+    
     void updateBook(string newName, string newAuthor, string newId)
     {
         bookName = newName;
