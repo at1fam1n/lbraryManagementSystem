@@ -11,18 +11,24 @@ public:
     string authorName;
     string bookId;
     bool status;
-    
+
     void updateBook(string newName, string newAuthor, string newId)
     {
         bookName = newName;
         authorName = newAuthor;
         bookId = newId;
     }
+
+void borrowbook(){
+
+
+
+}
     
 
     void display()
     {
-        cout << "Book Name"<< ","<< "Author Name"<<"," "Book Id" << endl;
+       
         cout << bookName << "," << authorName << "," << bookId << endl;
     }
   

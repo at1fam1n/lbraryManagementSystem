@@ -9,42 +9,46 @@ class Library
 {
 public:
     FileHandling filehandling;
-    Book *arrayOfBooks; //pointer to array of books
-    int numBooks;        //number of books currently in the library
+    Book *arrayOfBooks; 
+    int numBooks;       
 
     Library() : numBooks(0)
     {
-        //initialize arrayOfBooks
-        arrayOfBooks = new Book[1];//start with a size of 1, it will dynamically grow as needed
+        
+        arrayOfBooks = new Book[1]; 
     }
 
     ~Library()
     {
-        
-        delete[] arrayOfBooks; //deallocate memory for array of books
+
+        delete[] arrayOfBooks; 
     }
+
+
+
 
     void addBook(string bName, string aName)
     {
-        string bid = generateId(); //generate ID for the book
+        string bid = generateId(); 
 
         Book newBook;
         newBook.updateBook(bName, aName, bid);
 
-        //create a new dynamic array with increased size
+        
         Book *newArrayOfBooks = new Book[numBooks + 1];
-        // copy old array to new array
-        for (int i = 0; i < numBooks; ++i)
+        
+                for (int i = 0; i < numBooks; ++i)
         {
+
             newArrayOfBooks[i] = arrayOfBooks[i];
         }
-        // add new book
+        
         newArrayOfBooks[numBooks] = newBook;
 
-        //delete old array
+        
         delete[] arrayOfBooks;
 
-        //update arrayOfBooks and numBooks
+        
         arrayOfBooks = newArrayOfBooks;
         numBooks++;
 
@@ -56,70 +60,121 @@ public:
         filehandling.saveBookToExcelFile(newBook.bookName, newBook.authorName, newBook.bookId);
     }
 
+
+
+
     string generateId()
     {
-        //generate random ID for book
+        
         char alphanum[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-        const int idLength = 5; // Set the length of the ID
-        string id;
-        id.reserve(idLength);
+        const int idLength = 5; 
+                string id;
+        
+                id.reserve(idLength);
         for (int i = 0; i < idLength; ++i)
         {
             id += alphanum[rand() % (sizeof(alphanum) - 1)];
         }
 
-        cout << "YOUR BOOK ID IS :: " << id<<endl;
-
         return id;
     }
 
-
-
     void bookSearchById(string id)
     {
-    
+
     }
 
     void bookSearchByName(string bookname)
     {
-       
+
     }
 
-    static void borrowBook()
+
+
+     void borrowBook(string id)
+    {
+
+        char var;
+        cout<<"IF YOU WANT TO BORROW BOOK ENTER Y/N :: ";
+        cin>>var;
+        if(var == 'y' || var == 'Y'){
+            cout<<"STUDENT WANT TO BORROW BOOK "<<endl;
+        }else if(var == 'n' || var == 'N'){
+            cout<<"STUDENT DON'T WANT TO BORROW BOOK "<<endl;
+        }else{
+            cout<<"INVALID ANSWER "<<endl;
+            return;
+        }
+        
+        
+
+        string studentName, studentSementer;
+        int studentId;
+
+        cout<<"ENTER YOUR NAME "<<endl;
+        cin>>studentName;
+
+        cout<<"ENTER YOUR STUDENT ID"<<endl;
+        cin>>studentId;
+        
+
+        cout<<"ENTER YOUR CURRENT SEMESTER OR CLASS"<<endl;
+        cin>>studentSementer;
+
+
+        bool bookfound= false;
+
+     for(int i=0;i<numBooks;i++){
+
+        if(arrayOfBooks[i].bookId==id)
+
+        {
+            bookfound=true;
+            break;
+        }
+
+     }
+     if(bookfound){
+        cout<<"BOOK IS AVAILABLE IN LIBRARY "<<endl;
+
+     }else {
+            cout << "CURRENTLY, THE BOOK IS NOT AVAILABLE IN THE LIBRARY BECAUSE SOMEONE HAS BORROWED IT. " << endl;
+        }
+    }
+
+
+
+
+     void returnBook(string id)
+    {
+
+    }
+
+    void checkAvailabilityStatus()
     {
         
+
     }
-
-    static void returnBook(string id)
-    {
-        
-    }
-
-   void checkAvailabilityStatus()
-{
-
-}
     void deleteABook(string newbookid)
     {
         filehandling.deleteBook(newbookid);
     }
 
-   bool updateBook(string id, string newName, string newAuthor)
-{
-    //find the book with the given ID and update its name and author
-    for (int i = 0; i < numBooks; ++i)
+    bool updateBook(string id, string newName, string newAuthor)
     {
-        if (arrayOfBooks[i].bookId == id)
+        // find the book with the given ID and update its name and author
+        for (int i = 0; i < numBooks; ++i)
         {
-            arrayOfBooks[i].updateBook(newName, newAuthor, arrayOfBooks[i].bookId);
-            filehandling.updateBook(id, newName, newAuthor, arrayOfBooks[i].bookId);
-            return true;
+            if (arrayOfBooks[i].bookId == id)
+            {
+                arrayOfBooks[i].updateBook(newName, newAuthor, arrayOfBooks[i].bookId);
+                filehandling.updateBook(id, newName, newAuthor, arrayOfBooks[i].bookId);
+                return true;
+            }
         }
+        return false; // book not found
     }
-    return false; //book not found
-}
-
 
     void displayAllBooks()
     {
